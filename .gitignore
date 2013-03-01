@@ -4,3 +4,7 @@
 *.jar
 *.war
 *.ear
+/nbproject/private/
+/build/
+/dist/
+!/build/generated-sources/jax-ws/
