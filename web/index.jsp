@@ -4,6 +4,7 @@
     Author     : abnormal
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="javax.jmdns.ServiceInfo"%>
 <%@page import="javax.jmdns.JmDNS"%>
@@ -34,9 +35,13 @@
         </p>
         <p>
             <%
-                Object message = application.getAttribute("message");
-                if(message instanceof String) {
-                    out.write((String)message);
+                Object message = application.getAttribute("messages");
+                if(message instanceof List) {
+                    out.println("<ul>");
+                    for(int i = 0; i < ((List)message).size(); i++) {
+                        out.println("<li>"+((List)message).get(i)+"</li>");
+                    }
+                    out.println("</ul>");
                 }
             %>
         </p>

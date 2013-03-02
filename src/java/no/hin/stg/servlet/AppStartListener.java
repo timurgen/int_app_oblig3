@@ -1,10 +1,18 @@
 package no.hin.stg.servlet;
 
+import ch.ethz.iks.slp.Advertiser;
+import ch.ethz.iks.slp.ServiceLocationException;
+import ch.ethz.iks.slp.ServiceLocationManager;
+import ch.ethz.iks.slp.ServiceURL;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
@@ -29,8 +37,10 @@ public class AppStartListener implements ServletContextListener {
      */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        List<String> start_messages = new ArrayList<String>(10);
         try {//create and register multcast DNS service
             Enumeration<NetworkInterface> cards = NetworkInterface.getNetworkInterfaces();
+            
             while (cards.hasMoreElements()) {
                 NetworkInterface current = cards.nextElement();
                 if (current.isLoopback() || current.isVirtual() || current.isPointToPoint() || !current.isUp() || !current.supportsMulticast()) {
@@ -45,14 +55,31 @@ public class AppStartListener implements ServletContextListener {
                     params.put("WSDLURL", sce.getServletContext().getContextPath() + "/Oblig3Service?WSDL");
                     ServiceInfo info = ServiceInfo.create("_http._tcp.local", "WebService", 8080, 0, 0, params);
                     jmdns.registerService(info);
-                    sce.getServletContext().setAttribute("message", "JmDNS service is started on " + currentIp.getHostAddress() + " succesfully");
+                    start_messages.add("JmDNS service is started on " + currentIp.getHostAddress() + " succesfully");
                 }
-
             }
+//            //Service location protocoll
+//            // get Advertiser instance
+//            Advertiser advertiser = ServiceLocationManager.getAdvertiser(new Locale("en"));
+//            // the service has lifetime 600, that means it will only persist for ti minutes
+//            ServiceURL myService = new ServiceURL("service:test:myService://"+sce.getServletContext().getContextPath() + "/Oblig3Service", 600);
+//            // some attributes for the service
+//            @SuppressWarnings("UseOfObsoleteCollectionType")
+//            Hashtable<String, String> attributes = new Hashtable<String, String>(2);
+//            attributes.put("ServiceURL", sce.getServletContext().getContextPath() + "/Oblig3Service");
+//            attributes.put("WSDLURL", sce.getServletContext().getContextPath() + "/Oblig3Service?WSDL");
+//            advertiser.register(myService, attributes);
 
         } catch (IOException ex) {
             Logger.getLogger(AppStartListener.class.getName()).log(Level.SEVERE, null, ex);
-            sce.getServletContext().setAttribute("message", "JmDNS service is not started due " + ex.getMessage());
+            start_messages.add("JmDNS service is not started due " + ex.getMessage());
+        } 
+//        catch (ServiceLocationException ex) {
+//            Logger.getLogger(AppStartListener.class.getName()).log(Level.SEVERE, null, ex);
+//            start_messages.add("JmDNS service is not started due " + ex.getMessage());
+//        } 
+        finally {
+            sce.getServletContext().setAttribute("messages", start_messages);
         }
     }
 

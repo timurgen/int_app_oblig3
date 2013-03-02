@@ -48,10 +48,11 @@ public class Obig3Service {
     private FullerDataX0020FortuneX0020Cookie service;
 
     /**
+     * <p>Deloppgave 1. Autentiserer bruker mot Active Directory på HIN
      *
-     * @param name
-     * @param password
-     * @return
+     * @param name brukernavn
+     * @param password passord
+     * @return info ifølge oppgave
      */
     @WebMethod(operationName = "autentificate")
     public List<String> autentificate(@WebParam(name = "name") String name, @WebParam(name = "password") String password) {
@@ -98,7 +99,7 @@ public class Obig3Service {
             message = message.replace("[", "");//ellers kommer det exception 
             message = message.replace("]", "");
             StringTokenizer st = new StringTokenizer(message, ",");
-            if(st.hasMoreTokens()){//leser feilmelding
+            if (st.hasMoreTokens()) {//leser feilmelding
                 failInfo.add("fail message: " + st.nextToken());
                 return failInfo;
             } else {
@@ -114,7 +115,7 @@ public class Obig3Service {
     }
 
     /**
-     * <p>Deloppgave 2, get fortune cookie 
+     * <p>Deloppgave 2, get fortune cookie
      * <p>Kobler seg opp mot fullerdata web service og returnerer fortune
      * cookie.
      *
@@ -158,7 +159,7 @@ public class Obig3Service {
     private int computeCookieNumber(String username, String dayToday, int maxCookie) {
         int result = Math.abs(username.hashCode() ^ dayToday.hashCode());
         while (result >= maxCookie) {
-            result = result % maxCookie;
+            result %= maxCookie;
         }
         assert result < maxCookie && result >= 0;
         return result;
@@ -205,7 +206,8 @@ public class Obig3Service {
     }
 
     /**
-     *<p>Deloppgave 3, beregne objektstørrelse 
+     * <p>Deloppgave 3, beregne objektstørrelse
+     *
      * @param _object objekt som størrelse skal beregnes til
      * @return bytelengde av angitt objekt
      * @throws IOException if any IO problem occurs
@@ -222,12 +224,12 @@ public class Obig3Service {
         } catch (IOException ex) {
             LOG.log(Level.SEVERE, null, ex.getMessage());
         } finally {
-            if(out != null) {
+            if (out != null) {
                 out.close();
             }
             bos.close();
         }
         return -1;
-        
+
     }
 }
