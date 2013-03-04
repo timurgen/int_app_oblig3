@@ -1,10 +1,11 @@
+// Client for Oblig 3 implementert i Node.js, ikke er ferdig
+
 //import
 var http = require('http');//kobler til web tjner bibliotek
 var mdns = require('mdns'); // kobler til mdns bibliotek
 var url = require('url'); //kobler til url parsing
 var soap = require('soap');  //kobler til SOAP bibliotek
 var fs = require('fs'); //kobler til IO bibliotek
-
 
 
 var browser = mdns.createBrowser(mdns.tcp('http'));//lager mdns browser

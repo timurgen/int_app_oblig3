@@ -1,18 +1,12 @@
 package no.hin.stg.servlet;
 
-import ch.ethz.iks.slp.Advertiser;
-import ch.ethz.iks.slp.ServiceLocationException;
-import ch.ethz.iks.slp.ServiceLocationManager;
-import ch.ethz.iks.slp.ServiceURL;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
@@ -44,7 +38,7 @@ public class AppStartListener implements ServletContextListener {
             while (cards.hasMoreElements()) {
                 NetworkInterface current = cards.nextElement();
                 if (current.isLoopback() || current.isVirtual() || current.isPointToPoint() || !current.isUp() || !current.supportsMulticast()) {
-                    break;
+                    continue;
                 }
                 Enumeration<InetAddress> ipes = current.getInetAddresses();
                 while (ipes.hasMoreElements()) {
