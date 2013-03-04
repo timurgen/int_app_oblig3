@@ -53,6 +53,7 @@ public class AppStartListener implements ServletContextListener {
                     HashMap<String, String> params = new HashMap<String, String>(5);
                     params.put("ServiceURL", sce.getServletContext().getContextPath() + "/Oblig3Service");
                     params.put("WSDLURL", sce.getServletContext().getContextPath() + "/Oblig3Service?WSDL");
+                    params.put("resturl",sce.getServletContext().getContextPath() +"/webresources/");
                     ServiceInfo info = ServiceInfo.create("_http._tcp.local", "WebService", 8080, 0, 0, params);
                     jmdns.registerService(info);
                     start_messages.add("JmDNS service is started on " + currentIp.getHostAddress() + " succesfully");

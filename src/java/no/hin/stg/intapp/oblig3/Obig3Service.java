@@ -37,13 +37,15 @@ import no.hin.stg.intapp.oblig3.del2.FullerDataX0020FortuneX0020Cookie;
 /**
  *
  * @author Timur Samkharadze
- * <p>Dette er foerste del av obligatorisk oppgave 3, som autentiserer brukere
- * mot HIN active directory
+ * <p>Dette er class som implementerer web-service og inneholder alle oppgavedeler.
+ * 1) Autentisering mot Active Directory
+ * 2) Client til en annen web-service
+ * 3) byte-counter
  */
 @WebService(serviceName = "Oblig3Service")
 public class Obig3Service {
 
-    static final Logger LOG = Logger.getLogger(Obig3Service.class.getName());
+    private static final Logger LOG = Logger.getLogger(Obig3Service.class.getName());
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/www.fullerdata.com/FortuneCookie/FortuneCookie.asmx.wsdl")
     private FullerDataX0020FortuneX0020Cookie service;
 
@@ -121,7 +123,7 @@ public class Obig3Service {
      *
      * @param _username brukernavn som skal brukes ved beregning av aktuell
      * cookie
-     * @return fortune cookie basert å angitt brukernavn og dagens dato
+     * @return fortune cookie basert på angitt brukernavn og dagens dato
      */
     @WebMethod(operationName = "getFortuneCookies")
     public List<String> getFortuneCookies(@WebParam(name = "username") String _username) {

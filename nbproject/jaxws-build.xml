@@ -59,5 +59,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/no/hin/stg/intapp/oblig3/del2"/>
         <delete dir="${build.generated.dir}/jax-wsCache/FortuneCookie"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-FortuneCookie"/>
+    <target name="wsimport-client-Oblig3Service" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Oblig3Service"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Oblig3Service" destdir="${build.generated.dir}/jax-wsCache/Oblig3Service" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/Oblig3Service/wsdl/localhost_8080/int_app_oblig3/Oblig3Service.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" wsdlLocation="http://localhost:8080/int_app_oblig3/Oblig3Service?wsdl" xnocompile="true" xendorsed="true" package="no.hin.stg.intapp.oblig3_client">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/Oblig3Service/wsdl/localhost_8080/int_app_oblig3/Oblig3Service.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Oblig3Service"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Oblig3Service">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Oblig3Service" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/no/hin/stg/intapp/oblig3_client"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/Oblig3Service"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-FortuneCookie, wsimport-client-Oblig3Service"/>
 </project>

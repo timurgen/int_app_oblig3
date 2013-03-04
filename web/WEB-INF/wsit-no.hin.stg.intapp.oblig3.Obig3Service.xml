@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Oblig3Service" targetNamespace="http://oblig3.intapp.stg.hin.no/" xmlns:tns="http://oblig3.intapp.stg.hin.no/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" xmlns:wsrm="http://docs.oasis-open.org/ws-rx/wsrmp/200702" 
+ >
+    <message name="autentificate"/>
+    <message name="autentificateResponse"/>
+    <message name="getFortuneCookies"/>
+    <message name="getFortuneCookiesResponse"/>
+    <message name="objectCounter"/>
+    <message name="objectCounterResponse"/>
+    <portType name="Obig3Service">
+        <operation name="autentificate">
+            <input message="tns:autentificate"/>
+            <output message="tns:autentificateResponse"/>
+        </operation>
+        <operation name="getFortuneCookies">
+            <input message="tns:getFortuneCookies"/>
+            <output message="tns:getFortuneCookiesResponse"/>
+        </operation>
+        <operation name="objectCounter">
+            <input message="tns:objectCounter"/>
+            <output message="tns:objectCounterResponse"/>
+        </operation>
+    </portType>
+    <binding name="Obig3ServicePortBinding" type="tns:Obig3Service">
+        <wsp:PolicyReference URI="#Obig3ServicePortBindingPolicy"/>
+        <operation name="autentificate">
+            <input></input>
+            <output></output>
+        </operation>
+        <operation name="getFortuneCookies">
+            <input></input>
+            <output></output>
+        </operation>
+        <operation name="objectCounter">
+            <input></input>
+            <output></output>
+        </operation>
+    </binding>
+    <service name="Oblig3Service">
+        <port name="Obig3ServicePort" binding="tns:Obig3ServicePortBinding"/>
+    </service>
+    <wsp:Policy wsu:Id="Obig3ServicePortBindingPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <fi:OptimizedFastInfosetSerialization enabled="false"/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>
