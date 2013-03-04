@@ -24,8 +24,8 @@ browser.on('serviceUp', function(service) {
 //        });
 //bruker REST service
     }
-
 });
+
 browser.on('serviceDown', function(service) {
     console.log("service down: ", service);
 });
