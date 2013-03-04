@@ -52,9 +52,10 @@ public class Obig3Service {
     /**
      * <p>Deloppgave 1. Autentiserer bruker mot Active Directory på HIN
      *
-     * @param name brukernavn
+     * @param name brukernavn 
      * @param password passord
      * @return info ifølge oppgave
+     *
      */
     @WebMethod(operationName = "autentificate")
     public List<String> autentificate(@WebParam(name = "name") String name, @WebParam(name = "password") String password) {
