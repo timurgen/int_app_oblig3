@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 22.feb.2013, 13:12:53
-    Author     : abnormal
+    Author     : Timur Samkharadze
 --%>
 
 <%@page import="java.util.List"%>

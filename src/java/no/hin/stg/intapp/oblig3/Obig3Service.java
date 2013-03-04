@@ -37,10 +37,9 @@ import no.hin.stg.intapp.oblig3.del2.FullerDataX0020FortuneX0020Cookie;
 /**
  *
  * @author Timur Samkharadze
- * <p>Dette er class som implementerer web-service og inneholder alle oppgavedeler.
- * 1) Autentisering mot Active Directory
- * 2) Client til en annen web-service
- * 3) byte-counter
+ * <p>Dette er class som implementerer web-service og inneholder alle
+ * oppgavedeler. 1) Autentisering mot Active Directory 2) Client til en annen
+ * web-service 3) byte-counter
  */
 @WebService(serviceName = "Oblig3Service")
 public class Obig3Service {
@@ -219,6 +218,15 @@ public class Obig3Service {
     public Integer countByteLength(@WebParam(name = "_object") Object _object) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;
+        if (_object instanceof String) {
+            LOG.log(Level.INFO, "got  String object: {0}", ((String) _object));
+        } else if (_object instanceof Integer) {
+            LOG.log(Level.INFO, "got  Integer object: {0}", ((Integer) _object));
+        } else if(_object instanceof Double) {
+            LOG.log(Level.INFO, "got  Double object: {0}", ((Double) _object));
+        } else if(_object instanceof String[]){
+            LOG.log(Level.INFO, "got  String[] object length: {0}", ((String[]) _object).length);
+        }
         try {
             out = new ObjectOutputStream(bos);
             out.writeObject(_object);
